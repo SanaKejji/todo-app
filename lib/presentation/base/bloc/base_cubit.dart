@@ -6,7 +6,9 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/core/di/injection.dart';
 import 'package:todo_app/core/use_case/use_case.dart';
+import 'package:todo_app/core/widgets/show_dialog.dart';
 import 'package:todo_app/domain/use_cases/auth/get_current_use_case.dart';
+import 'package:todo_app/presentation/base/profile_dialog.dart';
 
 import '../../../data/models/auth/user.dart';
 import '../../../router/router.gr.dart';
@@ -28,5 +30,15 @@ class BaseCubit extends Cubit<BaseState> {
     result.fold((ifLeft) {}, (user) {
       emit(state.copyWith(userData: user));
     });
+  }
+
+  Future<void> openProfileDialog(BuildContext context) async {
+    showAppDialog(context,
+        page: ProfileDialog(
+            user: state.userData!,
+            onLogout: () {
+              logout(context);
+            },
+            onChangeTheme: (isLightTheme) {}));
   }
 }

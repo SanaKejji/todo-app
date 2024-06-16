@@ -157,6 +157,8 @@ class CustomAppTheme {
             secondary: AppColors.accent));
   }
 
+  bool isLightTheme(BuildContext context) =>
+      ThemeProvider.themeOf(context).id == "light_theme";
   void changeTheme(BuildContext context) =>
       ThemeProvider.controllerOf(context).nextTheme();
 

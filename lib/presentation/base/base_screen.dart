@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/di/injection.dart';
 import 'package:todo_app/core/widgets/fancy_background.dart';
 import 'package:todo_app/presentation/base/bloc/base_cubit.dart';
@@ -38,15 +39,51 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       ),
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return FancyBackground(
-          page: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              elevation: 0,
+        return BlocProvider(
+          create: (context) => _bloc,
+          child: FancyBackground(
+            page: Scaffold(
               backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                leadingWidth: MediaQuery.of(context).size.width,
+                leading: BlocBuilder<BaseCubit, BaseState>(
+                    builder: (context, state) {
+                  return state.userData == null
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: InkWell(
+                            onTap: () {
+                              _bloc.openProfileDialog(context);
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        state.userData!.image,
+                                        scale: 1),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(state.userData!.username,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge)
+                              ],
+                            ),
+                          ),
+                        );
+                }),
+              ),
+              body: child,
+              bottomNavigationBar: buildBottomNavigation(context, tabsRouter),
             ),
-            body: child,
-            bottomNavigationBar: buildBottomNavigation(context, tabsRouter),
           ),
         );
       },

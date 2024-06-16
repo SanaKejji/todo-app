@@ -55,7 +55,7 @@ class InfiniteListWidgetState extends State<InfiniteListWidget> {
         controller: _scrollController,
         itemCount:
             widget.hasReachedMax ? widget.itemLength : widget.itemLength + 1,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         separatorBuilder: (context, index) => const SizedBox(height: 15),
         itemBuilder: (context, index) {
           return index >= widget.itemLength
