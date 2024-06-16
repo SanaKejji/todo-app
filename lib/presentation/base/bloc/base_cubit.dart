@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/core/di/injection.dart';
 
+import '../../../data/models/auth/user.dart';
 import '../../../router/router.gr.dart';
 
 part 'base_state.dart';
@@ -13,6 +14,7 @@ part 'base_state.dart';
 @lazySingleton
 class BaseCubit extends Cubit<BaseState> {
   BaseCubit() : super(const BaseState());
+  final G
 
   void logout(BuildContext context) {
     getIt<SharedPreferences>().clear();

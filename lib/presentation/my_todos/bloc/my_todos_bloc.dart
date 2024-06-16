@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todo_app/core/di/injection.dart';
 import 'package:todo_app/core/services/auth_storage_service.dart';
-import 'package:todo_app/core/services/user_info_service.dart';
 import 'package:todo_app/core/use_case/use_case.dart';
 import 'package:todo_app/core/utils/bot_toast_utils.dart';
 import 'package:todo_app/core/widgets/component_template.dart';
@@ -27,8 +26,6 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
   };
 }
 
-const int _limit = 20;
-
 @LazySingleton()
 class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
   final GetUserTodosUseCase _getUserTodosUseCase;
@@ -36,8 +33,8 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
   final UpdateTodoUseCase _updateTodoUseCase;
   final DeleteTodoUseCase _deleteTodoUseCase;
 
-  MyTodosBloc(this._getUserTodosUseCase, this._addTodoUseCase,
-      this._updateTodoUseCase, this._deleteTodoUseCase)
+  MyTodosBloc(this._getUserTodosUseCase, this._addTodoUseCase, this._updateTodoUseCase,
+      this._deleteTodoUseCase)
       : super(const MyTodosState()) {
     on<MyTodosFetchedEvent>(_onMyTodosFetchedEvent,
         transformer: throttleDroppable(throttleDuration));
@@ -46,32 +43,24 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     on<AddedTodoEvent>(_onAddTodo);
   }
 
-  Future<void> _onMyTodosFetchedEvent(
-      MyTodosFetchedEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onMyTodosFetchedEvent(MyTodosFetchedEvent event, Emitter<MyTodosState> emit) async {
     emit(state.copyWith(
-        screenStatus: event.withLoading
-            ? ComponentStatus.fetchingData
-            : ComponentStatus.showData));
+        screenStatus: event.withLoading ? ComponentStatus.fetchingData : ComponentStatus.showData));
     final result = await _getUserTodosUseCase(NoParams());
     result.fold((error) {
-      emit(state.copyWith(
-          errorMessage: error.message, screenStatus: ComponentStatus.error));
+      emit(state.copyWith(errorMessage: error.message, screenStatus: ComponentStatus.error));
     }, (res) {
       emit(state.copyWith(
           todos: List.of(res.todos),
-          screenStatus: res.todos.isNotEmpty
-              ? ComponentStatus.showData
-              : ComponentStatus.emptyData));
+          screenStatus:
+              res.todos.isNotEmpty ? ComponentStatus.showData : ComponentStatus.emptyData));
     });
   }
 
-  Future<void> _onAddTodo(
-      AddedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onAddTodo(AddedTodoEvent event, Emitter<MyTodosState> emit) async {
     showLoading();
     final result = await _addTodoUseCase(TodoParams(
-        userId: getIt<AuthStorageService>().userId ?? 0,
-        todo: event.todo,
-        completed: false));
+        userId: getIt<AuthStorageService>().userId ?? 0, todo: event.todo, completed: false));
     result.fold((error) {
       showErrorToast(error.message);
     }, (res) {
@@ -81,8 +70,7 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     closeLoading();
   }
 
-  Future<void> _onDeleteTodo(
-      DeletedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onDeleteTodo(DeletedTodoEvent event, Emitter<MyTodosState> emit) async {
     showLoading();
     final result = await _deleteTodoUseCase(event.id);
     result.fold((error) {
@@ -94,11 +82,10 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     closeLoading();
   }
 
-  Future<void> _onUpdateTodo(
-      UpdatedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onUpdateTodo(UpdatedTodoEvent event, Emitter<MyTodosState> emit) async {
     showLoading();
-    final result = await _updateTodoUseCase(
-        UpdateTodoParams(todoId: event.id, completed: event.completed));
+    final result =
+        await _updateTodoUseCase(UpdateTodoParams(todoId: event.id, completed: event.completed));
     result.fold((error) {
       showErrorToast(error.message);
     }, (res) {

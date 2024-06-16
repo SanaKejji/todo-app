@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/widgets/fancy_background.dart';
 import 'package:todo_app/router/router.gr.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -33,70 +34,16 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       ),
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return Stack(
-          children: [
-            Container(color: Theme.of(context).scaffoldBackgroundColor),
-            Positioned(
-              top: 0,
-              left: 250,
-              child: Container(
-                height: 450,
-                width: 450,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 250,
-                        spreadRadius: 5,
-                        color: AppColors.primary.withOpacity(.5))
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: -40,
-              left: 270,
-              child: Container(
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 250,
-                        spreadRadius: 5,
-                        color: AppColors.secondary.withOpacity(.5))
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 300,
-              right: 240,
-              child: Container(
-                height: 400,
-                width: 400,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 250,
-                        spreadRadius: 5,
-                        color: AppColors.secondary.withOpacity(.4))
-                  ],
-                ),
-              ),
-            ),
-            Scaffold(
+        return FancyBackground(
+          page: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
               backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-              ),
-              body: child,
-              bottomNavigationBar: buildBottomNavigation(context, tabsRouter),
-            )
-          ],
+            ),
+            body: child,
+            bottomNavigationBar: buildBottomNavigation(context, tabsRouter),
+          ),
         );
       },
     );
@@ -112,10 +59,8 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
       unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(),
-      selectedLabelStyle: Theme.of(context)
-          .textTheme
-          .labelMedium
-          ?.copyWith(fontWeight: FontWeight.bold),
+      selectedLabelStyle:
+          Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
       elevation: 0,

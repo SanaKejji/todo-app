@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
 class FancyBackground extends StatelessWidget {
-  const FancyBackground({Key? key}) : super(key: key);
-
+  const FancyBackground({Key? key, required this.page}) : super(key: key);
+  final Widget page;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -20,9 +20,7 @@ class FancyBackground extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250,
-                    spreadRadius: 5,
-                    color: AppColors.primary.withOpacity(.5))
+                    blurRadius: 250, spreadRadius: 5, color: AppColors.primary.withOpacity(.5))
               ],
             ),
           ),
@@ -37,9 +35,7 @@ class FancyBackground extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250,
-                    spreadRadius: 5,
-                    color: AppColors.secondary.withOpacity(.5))
+                    blurRadius: 250, spreadRadius: 5, color: AppColors.secondary.withOpacity(.5))
               ],
             ),
           ),
@@ -54,9 +50,7 @@ class FancyBackground extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250,
-                    spreadRadius: 5,
-                    color: AppColors.secondary.withOpacity(.4))
+                    blurRadius: 250, spreadRadius: 5, color: AppColors.secondary.withOpacity(.4))
               ],
             ),
           ),
