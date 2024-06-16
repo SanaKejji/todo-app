@@ -20,23 +20,9 @@
  ┃ ┣ 📂data_source
  ┃ ┣ 📂models
  ┃ ┗ 📂repositories
- ┃ ┃ ┣ 📜auth_repository_impl.dart
- ┃ ┃ ┗ 📜todos_repository_impl.dart
  ┣ 📂domain
  ┃ ┣ 📂repositories
- ┃ ┃ ┣ 📜auth_repositiory.dart
- ┃ ┃ ┗ 📜todos_repository.dart
  ┃ ┗ 📂use_cases
- ┃ ┃ ┣ 📂auth
- ┃ ┃ ┃ ┣ 📜get_current_use_case.dart
- ┃ ┃ ┃ ┣ 📜login_use_case.dart
- ┃ ┃ ┃ ┗ 📜refresh_token_use_case.dart
- ┃ ┃ ┗ 📂todos
- ┃ ┃ ┃ ┣ 📜add_todo_use_case.dart
- ┃ ┃ ┃ ┣ 📜delete_todo_use_case.dart
- ┃ ┃ ┃ ┣ 📜get_all_todos_use_case.dart
- ┃ ┃ ┃ ┣ 📜get_user_todos_use_case.dart
- ┃ ┃ ┃ ┗ 📜update_todo_use_case.dart
  ┣ 📂presentation
  ┃ ┣ 📂auth
  ┃ ┃ ┣ 📂bloc
@@ -60,6 +46,7 @@
  ┣ 📜app.dart
  ┗ 📜main.dart
 ```
+
 
 
 ## Main Dependences:
