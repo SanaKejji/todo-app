@@ -5,6 +5,16 @@
 - BLoC.
 - Clean Architecture Layers inspired by ('(https://resocoder.com/flutter-clean-architecture-tdd/)').
 
+**app features**:
+
+ app has three main screens(login, my todos, others todo "display other people todos").
+
+- login.
+- user can add + edit + view + delete his tasks.
+- display user main profile info.
+- store user todos in local storage to be accessible at any time.
+- the app have light and dark theme.
+
 
 ### Project structure:
 
@@ -56,12 +66,9 @@
 3. **Get It** (Service Locator and Dependencies container).
 4. **Dio** (Http Client).
 5. **BLoC Test**.
-6. **Http Mock Adapter** for testing.
+6. **Mockito** for testing.
 
 
 
 
-### Notes:
-
-1. Test report will saved in report.json file.
 
