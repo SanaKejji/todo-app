@@ -49,38 +49,17 @@
 
 
 
-## Main Dependences:
+## Main Dependencies:
 
 1. **Flutter BLoC** for State Management.
 2. **Auto Router** (Routing package).
-3. **Get It** (Service Locater and Dependencies container).
+3. **Get It** (Service Locator and Dependencies container).
 4. **Dio** (Http Client).
 5. **BLoC Test**.
 6. **Http Mock Adapter** for testing.
 
-## Scripts:
 
-```yaml
-scripts:
-  format: melos exec -- "flutter format ."
 
-  fix_hints: melos exec -- "dart fix —apply ."
-
-  flutter_test_report: flutter test --reporter  json  | tojunit --output report.json
-
-  flutter_test: flutter test
-
-  build_runner:
-    run: |
-      melos exec --depends-on="build_runner" --  $runner
-    env:
-      runner: flutter pub run build_runner build --delete-conflicting-outputs
-      
-  build_relese:
-    run: flutter build apk
-```
-
-ex: `melos format .`
 
 ### Notes:
 
