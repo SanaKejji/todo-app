@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/di/injection.dart';
 import 'package:todo_app/core/widgets/component_template.dart';
+import 'package:todo_app/core/widgets/todo_card.dart';
 import 'package:todo_app/presentation/my_todos/bloc/my_todos_event.dart';
 import 'package:todo_app/presentation/my_todos/bloc/my_todos_state.dart';
 
@@ -55,23 +56,17 @@ class MyTodosScreenState extends State<MyTodosScreen> {
               },
               onFetchNextPage: () {},
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    _bloc.add(DeletedTodoEvent(id: state.todos[index].id));
+                return TodoCard(
+                  onclickDelete: () {
+                    _bloc.add(DeletedTodoEvent(index: index, context: context));
                   },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.pink.withOpacity(.5),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(state.todos[index].todo),
-                      ),
-                    ),
-                  ),
+                  onclickUpdate: () {
+                    _bloc.add(UpdatedTodoEvent(
+                        completed: state.todos[index].completed,
+                        index: index,
+                        context: context));
+                  },
+                  todo: state.todos[index],
                 );
               },
             ),

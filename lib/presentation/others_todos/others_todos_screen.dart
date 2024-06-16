@@ -50,6 +50,7 @@ class OthersTodosScreenState extends State<OthersTodosScreen> {
             },
             itemBuilder: (context, index) {
               return TodoCard(
+                canControl: false,
                 todo: state.todos[index],
                 onclickDelete: () {},
                 onclickUpdate: () {},

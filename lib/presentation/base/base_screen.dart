@@ -59,7 +59,7 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       onTap: (index) {
         tabsRouter.setActiveIndex(index);
       },
-      selectedItemColor: AppColors.secondary,
+      selectedItemColor: AppColors.primary,
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
       unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(),

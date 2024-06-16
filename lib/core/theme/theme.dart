@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:todo_app/app.dart';
 import 'app_colors.dart';
 
 class CustomAppTheme {
@@ -12,7 +13,7 @@ class CustomAppTheme {
   /* edit light theme to suit project's design (optional) */
   ThemeData lightTheme(BuildContext context) {
     return ThemeData(
-        useMaterial3: true,
+        useMaterial3: false,
         fontFamily: GoogleFonts.changa().fontFamily,
         checkboxTheme: CheckboxThemeData(
             shape:
@@ -85,7 +86,7 @@ class CustomAppTheme {
   /* edit dark theme to suit project's design (optional) */
   ThemeData darkTheme(BuildContext context) {
     return ThemeData(
-        useMaterial3: true,
+        useMaterial3: false,
         fontFamily: GoogleFonts.changa().fontFamily,
         primaryColor: AppColors.primary,
         hintColor: Colors.white,
@@ -93,12 +94,18 @@ class CustomAppTheme {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(3))),
         inputDecorationTheme: const InputDecorationTheme(
-            border: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.primary),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
             fillColor: Colors.transparent,
             filled: true,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
+              borderSide: BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             )),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: ButtonStyle(

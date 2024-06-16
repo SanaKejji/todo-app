@@ -23,14 +23,16 @@ class DioHeadersInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.type == DioExceptionType.badResponse) {
       if (err.response?.statusCode == 403 || err.response?.statusCode == 401) {
-        LoginInfo? authData = getIt<AuthStorageService>().getLoginInfo();
+        LoginInfo? oldAuthData = getIt<AuthStorageService>().getLoginInfo();
         final result = await getIt<RefreshTokenUseCase>().call(
-            RefreshTokenParam(refreshToken: authData?.refreshToken ?? ''));
+            RefreshTokenParam(refreshToken: oldAuthData?.refreshToken ?? ''));
         result.fold((failure) {
           handler.reject(err);
         }, (authData) async {
-          getIt<AuthStorageService>().setLoginInfo(authData.copyWith(
-              refreshToken: authData.refreshToken, token: authData.token));
+          getIt<AuthStorageService>().setLoginInfo(oldAuthData == null
+              ? authData
+              : oldAuthData.copyWith(
+                  refreshToken: authData.refreshToken, token: authData.token));
           final response = await _retry(err.requestOptions);
           handler.resolve(response);
         });

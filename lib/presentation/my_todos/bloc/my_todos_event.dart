@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 abstract class MyTodosEvent {}
 
 class MyTodosFetchedEvent extends MyTodosEvent {
@@ -6,7 +8,6 @@ class MyTodosFetchedEvent extends MyTodosEvent {
   MyTodosFetchedEvent({this.withLoading = true});
 }
 
-
 class AddedTodoEvent extends MyTodosEvent {
   final String todo;
 
@@ -14,14 +15,19 @@ class AddedTodoEvent extends MyTodosEvent {
 }
 
 class UpdatedTodoEvent extends MyTodosEvent {
-  final int id;
+  final int index;
   final bool completed;
+  final BuildContext context;
 
-  UpdatedTodoEvent(this.completed, {required this.id});
+  UpdatedTodoEvent({
+    required this.index,
+    required this.completed,
+    required this.context,
+  });
 }
 
 class DeletedTodoEvent extends MyTodosEvent {
-  final int id;
-
-  DeletedTodoEvent({required this.id});
+  final int index;
+  final BuildContext context;
+  DeletedTodoEvent({required this.index, required this.context});
 }

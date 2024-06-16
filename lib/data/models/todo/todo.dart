@@ -17,6 +17,20 @@ class Todo {
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
   Map<String, dynamic> toJson() => _$TodoToJson(this);
+
+  Todo copyWith({
+    int? id,
+    int? userId,
+    bool? completed,
+    String? todo,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      completed: completed ?? this.completed,
+      todo: todo ?? this.todo,
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)

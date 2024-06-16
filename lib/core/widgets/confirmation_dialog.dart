@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -22,7 +23,7 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
             onPressed: () {
-              Navigator.pop(context, true);
+              context.router.maybePop(true);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
@@ -35,7 +36,7 @@ class ConfirmationDialog extends StatelessWidget {
                   .bodyMedium
                   ?.copyWith(color: AppColors.primary)),
           onPressed: () {
-            Navigator.pop(context, false);
+            context.router.maybePop(false);
           },
           child: const Text('Cancel'),
         )

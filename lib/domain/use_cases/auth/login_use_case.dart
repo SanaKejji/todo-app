@@ -23,9 +23,7 @@ class LoginParam {
   final String password;
   final int expiresInMins;
   LoginParam(
-      {required this.username,
-      required this.password,
-      this.expiresInMins = 60});
+      {required this.username, required this.password, this.expiresInMins = 5});
 
   Map<String, dynamic> toMap() {
     return {
