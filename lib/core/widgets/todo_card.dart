@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
+import 'package:todo_app/app.dart';
 import 'package:todo_app/data/models/todo/todo.dart';
 
 import '../theme/app_colors.dart';
@@ -31,18 +32,19 @@ class TodoCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
                 border: Border.all(
-                    color: Colors.white.withOpacity(0.2), width: 2.5),
+                    color: Colors.white.withOpacity(0.2), width: 0.5),
                 borderRadius: const BorderRadius.all(Radius.circular(25))),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 40),
                 child: Text(
                   todo.todo,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w200,
-                      color: theme.colorScheme.onPrimary),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: AppColors.white),
                 ),
               ),
             ]),
