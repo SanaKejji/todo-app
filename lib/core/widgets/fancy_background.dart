@@ -14,13 +14,15 @@ class FancyBackground extends StatelessWidget {
           top: 0,
           left: 250,
           child: Container(
-            height: 450,
-            width: 450,
+            height: 260,
+            width: 260,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250, spreadRadius: 5, color: AppColors.primary.withOpacity(.5))
+                    blurRadius: 250,
+                    spreadRadius: 5,
+                    color: AppColors.primary.withOpacity(.5))
               ],
             ),
           ),
@@ -35,7 +37,9 @@ class FancyBackground extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250, spreadRadius: 5, color: AppColors.secondary.withOpacity(.5))
+                    blurRadius: 250,
+                    spreadRadius: 5,
+                    color: AppColors.secondary.withOpacity(.5))
               ],
             ),
           ),
@@ -50,7 +54,9 @@ class FancyBackground extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 250, spreadRadius: 5, color: AppColors.secondary.withOpacity(.4))
+                    blurRadius: 250,
+                    spreadRadius: 5,
+                    color: AppColors.secondary.withOpacity(.4))
               ],
             ),
           ),

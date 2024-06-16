@@ -32,8 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     final result = await _loginUseCase(LoginParam(
         username: form.control('username').value,
-        password: form.control('password').value,
-        expiresInMins: 5));
+        password: form.control('password').value));
     result.fold((l) {
       showErrorToast(l.message);
     }, (info) async {

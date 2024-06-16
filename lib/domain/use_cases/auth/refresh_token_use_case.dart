@@ -21,7 +21,7 @@ class RefreshTokenUseCase extends UseCase<
 class RefreshTokenParam {
   final String refreshToken;
   final int expiresInMins;
-  RefreshTokenParam({required this.refreshToken, this.expiresInMins = 30});
+  RefreshTokenParam({required this.refreshToken, this.expiresInMins = 60});
 
   Map<String, dynamic> toMap() {
     return {

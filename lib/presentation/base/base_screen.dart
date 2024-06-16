@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/di/injection.dart';
 import 'package:todo_app/core/widgets/fancy_background.dart';
+import 'package:todo_app/presentation/base/bloc/base_cubit.dart';
 import 'package:todo_app/router/router.gr.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -16,9 +18,11 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
+  final _bloc = getIt<BaseCubit>();
   @override
   void initState() {
     super.initState();
+    _bloc.getUserMainInfo();
   }
 
   @override
@@ -59,8 +63,10 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
       unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(),
-      selectedLabelStyle:
-          Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+      selectedLabelStyle: Theme.of(context)
+          .textTheme
+          .labelMedium
+          ?.copyWith(fontWeight: FontWeight.bold),
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
       elevation: 0,
