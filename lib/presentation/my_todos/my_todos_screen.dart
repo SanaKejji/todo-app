@@ -38,8 +38,8 @@ class MyTodosScreenState extends State<MyTodosScreen> {
         elevation: 3,
         child: const Icon(Icons.add),
       ),
-      body: BlocProvider<MyTodosBloc>(
-        create: (context) => _bloc,
+      body: BlocProvider.value(
+        value: _bloc,
         child:
             BlocBuilder<MyTodosBloc, MyTodosState>(builder: (context, state) {
           return ComponentTemplate(

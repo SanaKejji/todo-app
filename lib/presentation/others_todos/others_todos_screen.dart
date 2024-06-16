@@ -29,10 +29,9 @@ class OthersTodosScreenState extends State<OthersTodosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OthersTodosBloc>(
-      create: (context) => _bloc,
-      child: BlocBuilder<OthersTodosBloc, OthersTodosState>(
-          builder: (context, state) {
+    return BlocProvider.value(
+      value: _bloc,
+      child: BlocBuilder<OthersTodosBloc, OthersTodosState>(builder: (context, state) {
         return ComponentTemplate(
           state: state.screenStatus,
           errorMessage: state.errorMessage,

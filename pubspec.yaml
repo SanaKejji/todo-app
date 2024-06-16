@@ -55,11 +55,15 @@ dependencies:
   animations: ^2.0.11
   readmore: ^3.0.0
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   auto_route_generator:
   build_runner: ^2.4.11
   injectable_generator: ^2.6.1
   json_serializable: ^6.8.0
   flutter_launcher_icons: ^0.13.1
+  mockito: ^5.4.4
+
 
 flutter_icons:
   android: true

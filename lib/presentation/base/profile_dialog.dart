@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/app.dart';
 import 'package:todo_app/core/theme/theme.dart';
 import 'package:todo_app/data/models/auth/user.dart';
 
@@ -6,14 +7,11 @@ import '../../core/theme/app_colors.dart';
 
 class ProfileDialog extends StatelessWidget {
   const ProfileDialog(
-      {Key? key,
-      required this.user,
-      required this.onLogout,
-      required this.onChangeTheme})
+      {Key? key, required this.user, required this.onLogout, required this.onChangeTheme})
       : super(key: key);
   final User user;
   final Function() onLogout;
-  final Function(bool isLightTheme) onChangeTheme;
+  final Function() onChangeTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +57,36 @@ class ProfileDialog extends StatelessWidget {
                 children: [
                   const Divider(),
                   StatefulBuilder(builder: (context, setState) {
-                    return SwitchListTile(
-                        title: Icon(Icons.sunny),
-                        value: isLightTheme,
-                        onChanged: (val) {
-                          setState(() {
-                            isLightTheme = val;
-                            onChangeTheme.call(val);
-                          });
-                        });
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.sunny,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Light Theme',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(color: AppColors.primary),
+                          ),
+                          Switch(
+                              value: isLightTheme,
+                              onChanged: (val) {
+                                setState(() {
+                                  isLightTheme = val;
+                                  onChangeTheme.call();
+                                });
+                              }),
+                        ],
+                      ),
+                    );
                   }),
                   TextButton.icon(
                       onPressed: () {
@@ -84,10 +103,8 @@ class ProfileDialog extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               TextButton(
                 style: TextButton.styleFrom(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: AppColors.primary)),
+                    textStyle:
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.primary)),
                 onPressed: () {
                   Navigator.pop(context, false);
                 },

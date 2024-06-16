@@ -39,8 +39,8 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       ),
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return BlocProvider(
-          create: (context) => _bloc,
+        return BlocProvider.value(
+          value: _bloc,
           child: FancyBackground(
             page: Scaffold(
               backgroundColor: Colors.transparent,
@@ -48,8 +48,7 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 leadingWidth: MediaQuery.of(context).size.width,
-                leading: BlocBuilder<BaseCubit, BaseState>(
-                    builder: (context, state) {
+                leading: BlocBuilder<BaseCubit, BaseState>(builder: (context, state) {
                   return state.userData == null
                       ? SizedBox.shrink()
                       : Padding(
@@ -64,17 +63,14 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
                                   height: 50,
                                   width: 50,
                                   child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        state.userData!.image,
-                                        scale: 1),
+                                    backgroundImage: NetworkImage(state.userData!.image, scale: 1),
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 Text(state.userData!.username,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge)
+                                    style: Theme.of(context).textTheme.titleLarge)
                               ],
                             ),
                           ),
@@ -100,10 +96,8 @@ class _BaseScreenState extends State<BaseScreen> with TickerProviderStateMixin {
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,
       unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(),
-      selectedLabelStyle: Theme.of(context)
-          .textTheme
-          .labelMedium
-          ?.copyWith(fontWeight: FontWeight.bold),
+      selectedLabelStyle:
+          Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
       elevation: 0,

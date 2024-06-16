@@ -35,8 +35,8 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
   final UpdateTodoUseCase _updateTodoUseCase;
   final DeleteTodoUseCase _deleteTodoUseCase;
 
-  MyTodosBloc(this._getUserTodosUseCase, this._addTodoUseCase,
-      this._updateTodoUseCase, this._deleteTodoUseCase)
+  MyTodosBloc(this._getUserTodosUseCase, this._addTodoUseCase, this._updateTodoUseCase,
+      this._deleteTodoUseCase)
       : super(const MyTodosState()) {
     on<MyTodosFetchedEvent>(_onMyTodosFetchedEvent,
         transformer: throttleDroppable(throttleDuration));
@@ -45,42 +45,33 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     on<AddedTodoEvent>(_onAddTodo);
   }
   final _todosStorage = getIt<TodosStorageService>();
-  Future<void> _onMyTodosFetchedEvent(
-      MyTodosFetchedEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onMyTodosFetchedEvent(MyTodosFetchedEvent event, Emitter<MyTodosState> emit) async {
     final localTodos = _todosStorage.getTodos() ?? [];
     if (localTodos.isNotEmpty) {
       emit(state.copyWith(
           todos: List.of(localTodos),
-          screenStatus: localTodos.isNotEmpty
-              ? ComponentStatus.showData
-              : ComponentStatus.emptyData));
+          screenStatus:
+              localTodos.isNotEmpty ? ComponentStatus.showData : ComponentStatus.emptyData));
       return;
     }
     emit(state.copyWith(
-        screenStatus: event.withLoading
-            ? ComponentStatus.fetchingData
-            : ComponentStatus.showData));
+        screenStatus: event.withLoading ? ComponentStatus.fetchingData : ComponentStatus.showData));
     final result = await _getUserTodosUseCase(NoParams());
     result.fold((error) {
-      emit(state.copyWith(
-          errorMessage: error.message, screenStatus: ComponentStatus.error));
-    }, (res) async {
-      await _todosStorage.setTodos(res.todos);
+      emit(state.copyWith(errorMessage: error.message, screenStatus: ComponentStatus.error));
+    }, (res) {
       emit(state.copyWith(
           todos: List.of(res.todos),
-          screenStatus: res.todos.isNotEmpty
-              ? ComponentStatus.showData
-              : ComponentStatus.emptyData));
+          screenStatus:
+              res.todos.isNotEmpty ? ComponentStatus.showData : ComponentStatus.emptyData));
+      _todosStorage.setTodos(res.todos);
     });
   }
 
-  Future<void> _onAddTodo(
-      AddedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onAddTodo(AddedTodoEvent event, Emitter<MyTodosState> emit) async {
     showLoading();
     final result = await _addTodoUseCase(TodoParams(
-        userId: getIt<AuthStorageService>().userId ?? 0,
-        todo: event.todo,
-        completed: false));
+        userId: getIt<AuthStorageService>().userId ?? 0, todo: event.todo, completed: false));
     result.fold((error) {
       showErrorToast(error.message);
     }, (res) async {
@@ -91,13 +82,11 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     closeLoading();
   }
 
-  Future<void> _onDeleteTodo(
-      DeletedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onDeleteTodo(DeletedTodoEvent event, Emitter<MyTodosState> emit) async {
     final confirm = await showAppDialog(event.context,
         page: ConfirmationDialog(
             title: 'Delete task',
-            confirmationMessage:
-                'Are you sure you want to delete this task?')) as bool?;
+            confirmationMessage: 'Are you sure you want to delete this task?')) as bool?;
     if (!(confirm ?? false)) {
       return;
     }
@@ -113,8 +102,7 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
     closeLoading();
   }
 
-  Future<void> _onUpdateTodo(
-      UpdatedTodoEvent event, Emitter<MyTodosState> emit) async {
+  Future<void> _onUpdateTodo(UpdatedTodoEvent event, Emitter<MyTodosState> emit) async {
     final confirm = await showAppDialog(event.context,
         page: ConfirmationDialog(
             title: event.completed ? 'Un Complete Task' : 'Complete task',
@@ -125,8 +113,8 @@ class MyTodosBloc extends Bloc<MyTodosEvent, MyTodosState> {
       return;
     }
     showLoading();
-    final result = await _updateTodoUseCase(UpdateTodoParams(
-        todoId: state.todos[event.index].id, completed: !event.completed));
+    final result = await _updateTodoUseCase(
+        UpdateTodoParams(todoId: state.todos[event.index].id, completed: !event.completed));
 
     result.fold((error) {
       showErrorToast(error.message);
