@@ -14,7 +14,7 @@
 - display user main profile info.
 - store user todos in local storage to be accessible at any time.
 - the app have light and dark theme.
-
+  
 
 ### Project structure:
 
@@ -68,7 +68,11 @@
 5. **BLoC Test**.
 6. **Mockito** for testing.
 
+**app screens**:
 
 
-
-
+![photo_2024-06-16_12-57-12](https://github.com/SanaKejji/todo-app/assets/90012213/e1795498-efd8-4aee-a6b1-9aa373f45c1b)
+![photo_2024-06-16_12-57-14](https://github.com/SanaKejji/todo-app/assets/90012213/4a813aef-d80c-4738-a23b-5396f3638cc8)
+![photo_2024-06-16_12-57-16](https://github.com/SanaKejji/todo-app/assets/90012213/a720cd86-d9eb-479e-98e0-37bb59821dd7)
+![photo_2024-06-16_12-57-18](https://github.com/SanaKejji/todo-app/assets/90012213/2880710c-f715-49bb-98d9-c56617c07358)
+![photo_2024-06-16_12-57-09](https://github.com/SanaKejji/todo-app/assets/90012213/b338f3b7-0344-4aa4-9bb5-be6357df2826)
